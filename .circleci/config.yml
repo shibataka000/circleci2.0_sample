@@ -7,12 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install
+          name: Install ubuntu packages
           command: |
             apt-get update
             apt-get install zip -y
       - run:
-          name: Install requirements
+          name: Install python modules
           command: |
             pip install -r requirements.txt
             pip install -r test-requirements.txt
@@ -20,7 +20,7 @@ jobs:
           name: Run tests
           command: py.test --flake8 --cov-report html --cov .
       - run:
-          name: Zip coverage reports
+          name: Prepare to upload artifacts
           command: |
             mkdir htmlcov_zip
             zip htmlcov_zip/htmlcov.zip htmlcov -r
@@ -28,5 +28,5 @@ jobs:
           path: htmlcov_zip
           destination: htmlcov
       - deploy:
-          name: Dummy deploy
-          command: echo "Deploy!"
+          name: Deploy
+          command: echo "Deployed!"
