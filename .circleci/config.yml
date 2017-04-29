@@ -8,10 +8,9 @@ jobs:
       - checkout
       - run:
           name: Install requirements
-          command: pip install -r requirements.txt
-      - run:
-          name: Install test-requirements
-          command: pip install -r test-requirements.txt
+          command: |
+            pip install -r requirements.txt
+            pip install -r test-requirements.txt
       - run:
           name: Run tests
           command: py.test --flake8 --cov-report html --cov .
