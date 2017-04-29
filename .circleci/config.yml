@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/working
+    working_directory: ~/circleci2.0_sample
     docker:
       - image: python:3.6.0
     steps:
