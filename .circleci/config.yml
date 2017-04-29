@@ -1,9 +1,23 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circulate
+    working_directory: ~/working
     docker:
       - image: python:3.6.0
     steps:
       - checkout
-      - run: echo "hello world"
+      - run:
+          name: Install requirements
+          command: pip install -r requirements.txt
+      - run:
+          name: Install test-requirements
+          command: pip install -r test-requirements.txt
+      - run:
+          name: Run tests
+          command: py.test --flake8 --cov-report html --cov .
+      - store_artifacts:
+          path: htmlcov
+          destination: htmlcov
+      - deploy:
+          name: Dummy deploy
+          command: echo "Deploy!"
